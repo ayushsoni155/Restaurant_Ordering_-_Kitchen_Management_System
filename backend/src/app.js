@@ -1,10 +1,12 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const logger = require('./utils/logger');
 
 const app = express();
 
 // ── Middlewares ────────────────────────────────────────────────────────────────
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -19,8 +21,8 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', message: 'Restaurant API is running' });
 });
 
-// ── Routes (add as you build them) ────────────────────────────────────────────
-// app.use('/api/auth',   require('./routes/auth.routes'));
+// ── Routes ────────────────────────────────────────────────────────────────────
+app.use('/api/auth',   require('./routes/auth.routes'));
 // app.use('/api/menu',   require('./routes/menu.routes'));
 // app.use('/api/orders', require('./routes/order.routes'));
 
